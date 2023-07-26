@@ -35,7 +35,35 @@ function processCSV(contents) {
     }
   }
 
-  // Now 'data' contains an array of objects, each representing a row in the CSV
   console.log(data);
-  // You can do further processing with 'data' here
+
+  // show all data by headers on a table
+  const table = document.createElement("table");
+  const thead = document.createElement("thead");
+  const tbody = document.createElement("tbody");
+
+  const headerRow = document.createElement("tr");
+  for (let i = 0; i < headers.length; i++) {
+    const th = document.createElement("th");
+    th.appendChild(document.createTextNode(headers[i]));
+    headerRow.appendChild(th);
+  }
+  thead.appendChild(headerRow);
+
+  for (let i = 0; i < data.length; i++) {
+    const tr = document.createElement("tr");
+    for (let j = 0; j < headers.length; j++) {
+      const td = document.createElement("td");
+      td.appendChild(document.createTextNode(data[i][headers[j]]));
+      tr.appendChild(td);
+    }
+    tbody.appendChild(tr);
+  }
+
+  table.appendChild(thead);
+  table.appendChild(tbody);
+
+  const output = document.getElementById("output");
+  output.innerHTML = "";
+  output.appendChild(table);
 }
